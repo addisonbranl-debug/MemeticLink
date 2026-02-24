@@ -1,0 +1,87 @@
+/* App.css - Paste this in */
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+:root {
+  --meme-border: 15px;
+  --meme-font: 'Anton', sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: #000;
+  font-family: var(--meme-font);
+  overflow: hidden;
+}
+
+/* Container */
+.meme-app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-color: white;
+  padding: var(--meme-border);
+  box-sizing: border-box;
+}
+
+/* Inner Black Box */
+.meme-stage {
+  flex: 1;
+  background-color: black;
+  border: 4px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Typography */
+.meme-title {
+  font-size: 15vw;
+  margin: 0;
+  line-height: 1;
+  text-transform: uppercase;
+  color: white;
+  text-shadow: 
+    4px 4px 0 #000, 
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000;
+  animation: hit-screen 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.meme-subtitle {
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  letter-spacing: 2px;
+}
+
+/* Buttons */
+.btn-meme {
+  margin-top: 3rem;
+  background: white;
+  color: black;
+  font-family: var(--meme-font);
+  font-size: 2rem;
+  padding: 10px 40px;
+  border: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.btn-meme:hover {
+  transform: scale(1.05);
+  background: #ddd;
+}
+
+@keyframes hit-screen {
+  0% { transform: scale(3); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
