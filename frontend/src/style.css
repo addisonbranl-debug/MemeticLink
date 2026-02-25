@@ -1,0 +1,96 @@
+/* style.css */
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+:root {
+  --meme-border: 15px; /* The thickness of the white edge */
+  --meme-font: 'Anton', sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: #000; /* Outer void */
+  font-family: var(--meme-font);
+  overflow: hidden; /* App-like feel, no scrollbars */
+}
+
+/* --- THE LAYOUT STRATEGY: Grid Container --- */
+.meme-app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-color: white; /* The White Edge */
+  padding: var(--meme-border);
+  box-sizing: border-box;
+}
+
+/* The "Inner Black Box" */
+.meme-stage {
+  flex: 1; /* Takes up all remaining space */
+  background-color: black;
+  border: 4px solid black; /* Hard edge */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+/* --- ATOMS: Typography --- */
+.meme-title {
+  font-size: 15vw; /* Responsive huge text */
+  margin: 0;
+  line-height: 1;
+  text-transform: uppercase;
+  color: white;
+  /* The "Meme" Text Shadow (Black Outline) */
+  text-shadow: 
+    4px 4px 0 #000, 
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000;
+  
+  /* The "Hit" Animation */
+  opacity: 0;
+  animation: hit-screen 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.meme-subtitle {
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  letter-spacing: 2px;
+}
+
+/* --- ATOMS: Button --- */
+.btn-meme {
+  margin-top: 3rem;
+  background: white;
+  color: black;
+  font-family: var(--meme-font);
+  font-size: 2rem;
+  padding: 10px 40px;
+  border: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.btn-meme:hover {
+  transform: scale(1.05);
+  background: #ddd;
+}
+
+.btn-meme:active {
+  transform: scale(0.95);
+}
+
+/* Keyframe for the Title Impact */
+@keyframes hit-screen {
+  0% { transform: scale(3); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
