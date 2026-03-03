@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import Webcam from 'react-webcam';
 import './index.css';
 
@@ -7,7 +7,7 @@ const API = "/api/memetic";
 export default function App() {
   const [screen, setScreen] = useState('title');
   const [photo, setPhoto] = useState(null);
-  const [test,setTest] = useState([]);
+  const [test,setTest] =useState([]);
   const webcamRef = useRef(null);
 
   useEffect(() => {
@@ -43,7 +43,6 @@ export default function App() {
   const CameraScreen = () => (
     <>
       <h2>TAKE YOUR PHOTO</h2>
-      <h3>{test.text}</h3>
       <div className="camera-container">
         <Webcam
           audio={false}
@@ -53,7 +52,7 @@ export default function App() {
           videoConstraints={{ facingMode: "user" }}
         />
       </div>
-      <MemeButton text="SNAP PHOTO" onClick={capture} />
+      <MemeButton text={test.text} onClick={capture} />
     </>
   );
 
