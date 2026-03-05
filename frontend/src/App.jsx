@@ -8,7 +8,9 @@ export default function App() {
   const [screen, setScreen] = useState('title');
   const [photo, setPhoto] = useState(null);
   const [test,setTest] =useState([]);
+  const [idnum,setIDNum] = useState(1);
   const webcamRef = useRef(null);
+  const numPhotos = 7;
 
   useEffect(() => {
     fetch(API)
@@ -16,9 +18,12 @@ export default function App() {
       .then(setTest);
   }, []);
 
+
+
   // Function to capture the photo
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
+    setIDNum(Math.floor(Math.random() * numPhotos) + 1);
     setPhoto(imageSrc);
     setScreen('result');
   }, [webcamRef]);
@@ -47,12 +52,13 @@ export default function App() {
         <Webcam
           audio={false}
           ref={webcamRef}
+          mirrored={true}
           screenshotFormat="image/jpeg"
-          width="100%"
+          width="120%"
           videoConstraints={{ facingMode: "user" }}
         />
       </div>
-      <MemeButton text={test.text} onClick={capture} />
+      <MemeButton text="Meme Me" onClick={capture} />
     </>
   );
 
@@ -62,15 +68,18 @@ export default function App() {
       <h2>THE JUXTAPOSITION</h2>
       <div className="result-container">
         {/* Left Box: The "Meme" (Placeholder for now) */}
-        <div className="meme-box" style={{background: 'blue'}}>
-           <span style={{fontSize: '3rem'}}>🤖</span>
+        <div className="meme-box">
+           {/* <span style={{fontSize: '3rem'}}>🤖</span> */}
+           <img className="result-image" src={`/api/image/${idnum}`} style={{width: '100%', height: '100%', objectFit: 'cover'}}/>
         </div>
         
         {/* Right Box: YOU */}
-        <div className="meme-box" style={{ backgroundImage: `url(${photo})`, backgroundSize: 'cover' }}>
+        {/* style={{ backgroundImage: `url(${photo})`, backgroundSize: 'cover' }} */}
+        <div className="user-box" >
+          <img className="result-image" src={photo} style={{width: '100%', height: '100%', objectFit: 'cover'}}/>
         </div>
       </div>
-      <MemeButton text="TRY AGAIN" onClick={() => setScreen('title')} />
+      <MemeButton text="Try Again" onClick={() => setScreen('title')} />
     </>
   );
 

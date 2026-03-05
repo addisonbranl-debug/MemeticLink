@@ -88,12 +88,44 @@ body {
 }
 
 .meme-box {
-  width: 120px;
-  height: 120px;
-  border: 2px solid white;
+  padding: 2px;
+  max-width: 480px;
+  max-height: 480px;
+  aspect-ratio: initial;
+  width: fit-content;
+  height: fit-content;
+  min-width: 240px;
+  min-height: 240px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.result-image{
+  align-self: center;
+  border: 2px solid white;
+}
+
+.user-box {
+  padding: 2px;
+  max-width: 480px;
+  max-height: 480px;
+  width: min-content;
+  height: min-content;
+  aspect-ratio: 1/1;
+  min-width: 240px;
+  min-height: 240px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  justify-content: center;
+}
+
+
+.camera-container{
+  max-width: 360px;
+  max-height:360px;
+  overflow: hidden;
 }
 
 @keyframes hit-screen {
