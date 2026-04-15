@@ -7,24 +7,29 @@ const API = "/api/memetic";
 export default function App() {
   const [screen, setScreen] = useState('title');
   const [photo, setPhoto] = useState(null);
-  const [test,setTest] =useState([]);
-  const [idnum,setIDNum] = useState(1);
+  const [meme, setMeme] = useState(null);
   const webcamRef = useRef(null);
-  const numPhotos = 7;
 
-  useEffect(() => {
-    fetch(API)
-      .then((res) => res.json())
-      .then(setTest);
-  }, []);
 
 
 
   // Function to capture the photo
-  const capture = useCallback(() => {
+  const capture = useCallback(async () => {
     const imageSrc = webcamRef.current.getScreenshot();
-    setIDNum(Math.floor(Math.random() * numPhotos) + 1);
     setPhoto(imageSrc);
+    const blob = await fetch(imageSrc).then(r => r.blob());
+    const imgData = new FormData();
+    imgData.append("image", blob, "userImg.jpg");
+
+    const response = await fetch("http://127.0.0.1:5000/api/upload", {
+      method: "POST",
+      body: imgData,
+    });
+
+    const memeblob = await response.blob();
+    const imageUrl = URL.createObjectURL(memeblob);
+    setMeme(imageUrl);
+    
     setScreen('result');
   }, [webcamRef]);
 
@@ -60,17 +65,18 @@ export default function App() {
       </div>
       <MemeButton text="Meme Me" onClick={capture} />
     </>
-  );
+  ); 
 
   // --- SCREEN 3: Result (With your Face!) ---
   const ResultScreen = () => (
+    
     <>
       <h2>THE JUXTAPOSITION</h2>
       <div className="result-container">
         {/* Left Box: The "Meme" (Placeholder for now) */}
         <div className="meme-box">
            {/* <span style={{fontSize: '3rem'}}>🤖</span> */}
-           <img className="result-image" src={`/api/image/${idnum}`} style={{width: '100%', height: '100%', objectFit: 'cover'}}/>
+           <img className="result-image" src={meme} style={{width: '100%', height: '100%', objectFit: 'cover'}}/>
         </div>
         
         {/* Right Box: YOU */}
