@@ -24,9 +24,9 @@ def safeToList(vector):
 # Connect to DB
 client = MongoClient("mongodb+srv://GroupAdmin:7Sja9gih3Z78g3Z1@memematch.taqbveo.mongodb.net/?retryWrites=true&w=majority")
 db = client["meme_match_db"]
-imgCollection = db["fs.chunks"]
-embCollection = db["RealEncodings"]
-memeCollection = db["memes"]
+imgCollection = db["safeMemes"]
+embCollection = db["safeEncodings"]
+
 
 def encodeAllImages():
     docs = list(imgCollection.find({}))
@@ -36,7 +36,7 @@ def encodeAllImages():
         print(f"Processing {i+1}/{len(docs)}...", flush=True)
 
         # Skip if already encoded
-        existing = embCollection.find_one({"fs_chunk_id": doc["_id"]})
+        existing = embCollection.find_one({"meme_id": doc["_id"]})
         if existing:
             print(f"  Skipping {doc['_id']} — already encoded", flush=True)
             continue
@@ -69,7 +69,7 @@ def encodeAllImages():
 
             # Store encoding linked to the original image
             embCollection.insert_one({
-                "fs_chunk_id": doc["_id"],       # reference back to original image
+                "meme_id": doc["_id"],       # reference back to original image
                 # "ptv_encoding": pTVector.tolist(),
                 "otv_encoding": safeToList(oTVector),
                 # "mtv_encoding": mTVector.tolist(),
@@ -84,7 +84,7 @@ def encodeAllImages():
         except ValueError:
             print(f" no face detected", flush=True)
             embCollection.insert_one({
-                "fs_chunk_id": doc["_id"],       # reference back to original image
+                "meme_id": doc["_id"],       # reference back to original image
                 # "ptv_encoding": pTVector.tolist(),
                 "otv_encoding": safeToList(oTVector),
                 # "mtv_encoding": mTVector.tolist(),

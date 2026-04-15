@@ -21,8 +21,8 @@ CORS(app)
 
 client = MongoClient("mongodb+srv://GroupAdmin:7Sja9gih3Z78g3Z1@memematch.taqbveo.mongodb.net/?retryWrites=true&w=majority")
 db = client["meme_match_db"]
-imgCollection = db["fs.chunks"]
-embCollection = db["RealEncodings"]
+imgCollection = db["safeMemes"]
+embCollection = db["safeEncodings"]
 memeCollection = db["memes"]
 numMemes = embCollection.count_documents({})
 VECTORLENGTH = 8100
@@ -101,7 +101,7 @@ def matchMeme():
     for entry in embeddings:
         dist = total_distance(entry,userEnc)
         if dist < minDistance:
-            matchID = entry["fs_chunk_id"]
+            matchID = entry["meme_id"]
             minDistance = dist
     
     print(f"matching photo id = {matchID}", flush = True)
@@ -114,7 +114,6 @@ def matchMeme():
         print("no data in doc",flush=True)
         return {"error": "Document found but has no 'data' field"}, 404
     
-    print(f"files_id of match = {doc['files_id']}",flush=True)
 
     return Response(bytes(doc["data"]), mimetype="image/jpeg")
 
