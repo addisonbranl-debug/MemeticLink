@@ -135,3 +135,48 @@ body {
   0% { transform: scale(3); opacity: 0; }
   100% { transform: scale(1); opacity: 1; }
 }
+.loading-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  width: 100%;
+}
+
+.loading-text {
+  font-family: 'Inter', sans-serif; /* Use your UI font */
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-top: 20px;
+  animation: blink 1s infinite;
+}
+
+.scan-bar {
+  width: 80%;
+  height: 4px;
+  background: #ffffff;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #000;
+}
+
+.scan-bar::after {
+  content: '';
+  display: block;
+  width: 40%;
+  height: 100%;
+  background: #000;
+  position: absolute;
+  animation: slide 1.5s infinite ease-in-out;
+}
+
+@keyframes slide {
+  0% { left: -40%; }
+  100% { left: 100%; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
