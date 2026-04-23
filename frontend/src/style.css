@@ -13,7 +13,7 @@ body {
   overflow: hidden; /* App-like feel, no scrollbars */
 }
 
-/* --- THE LAYOUT STRATEGY: Grid Container --- */
+/* ---  STRATEGY: Grid Container --- */
 .meme-app-container {
   display: flex;
   flex-direction: column;
@@ -66,7 +66,7 @@ body {
   letter-spacing: 2px;
 }
 
-/* --- ATOMS: Button --- */
+
 .btn-meme {
   margin-top: 3rem;
   background: white;
